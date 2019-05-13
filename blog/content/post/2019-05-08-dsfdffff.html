@@ -1,0 +1,66 @@
+---
+title: 无聊的一天---做博客
+author: 张净沿
+date: '2019-05-08'
+slug: dsfdffff
+categories: []
+tags: []
+---
+
+
+
+<p>1.开始前的准备
+首先我么要安装R，Rstudio(如果你的Rstudio已经N年没有更新了，建议你更新你的Rstudio,因为下面的一些操作可能比较老的Rstudio版本是没有的), 有了这些之后，你需要安装必要的包：</p>
+<p>blogdown的安装</p>
+<p>CRAN
+install.packages(“blogdown”)</p>
+<p>GitHub
+if (!requireNamespace(“devtools”)) install.packages(“devtools”) devtools::install_github(“rstudio/blogdown”)</p>
+<p>hugo安装与更新
+blogdown::installhugo() blogdown::updatehugo()</p>
+<p>查看安装hugo的版本
+blogdown::hugoversion() ``` 当你安装好这些R包，然后运行 blogdown::newsite()没有报错,我们就可以进行下一步的操作了。</p>
+<p>2.Rstudio线下编辑博客系统
+配置需要的环境后，我们可以通过Rstudio来生成blog了：</p>
+<p>第一步：初始化一个Rblogdown项目</p>
+<p>打开Rstudio-&gt;File-&gt;New Project-&gt;New Directory 进入如下操作</p>
+<p>如图选择Website using blogdown创建一个R项目(如果看不到这个选项，请升级你的Rstudio) 进而</p>
+<p>注意上述过程也可以通过R命令来实现：blogdown::new_site(theme = “xxx”),xxx代表你要使用的hugo主题，hugo主题可以在https://themes.gohugo.io/中获得，这里有你想要的各种主题，你可以直接下载，拷贝到你项目中的themes文件中。</p>
+<p>第二步：运行初始化的Rblogdown</p>
+<p>运行完第一步之后，你会在你的Rstudio中看到项目文件的列表：</p>
+<p>config.toml: 这是你的博客的配置文件，对于你博客的一些全局信息可以在这里修改和配置</p>
+<p>content文件夹: 这里存放了我要Post的R markdown 文档和其他你要Post的markdown文档</p>
+<p>index.Rmd: 最终生成index.html</p>
+<p>public文件夹：最终博客生成的html文件和一些静态资源文件会放在这里</p>
+<p>static: blogdown需要的一些静态资源文件，像css文件，js文件，图片，视频等均属于静态资源文件</p>
+<p>themes: hugo主题，blogdown引入的hugo主题会下载到这个文件夹，同时你可以把你想要的hugo主题考到这个文件夹中供blogdown引用</p>
+<p>第三步：在Rstudio中运行博客系统</p>
+<p>在Console中输入：blogdown::serve_site()就可以正常启动你的博客系统了：</p>
+<p>在Rstudio的Viewer中会显示运行的博客，如下图所示：</p>
+<p>wow, 我们的博客出来了，但是问题来了，我怎么样通过R markdown Post到我的博客，因为我要更新我的博客内容，我们下一步要解决的问题就是删除模板中提供的博客内容，增加自己的Post的R markdown博文。</p>
+<p>第四步：Post我的Rmd博文</p>
+<p>我们在第二步中说过，content文件夹中的内容就是我们要Post的内容，因此我们只需删除掉content-&gt;post文件夹下的文件就可以了，同时我们也可以把about.md文件换成自己的about内容。清空之后我们就可以按照下面面方式Post我们自己的博文了：</p>
+<p>tools-&gt;Addins-&gt;blogdown New Post-&gt;Excute就可以新建一个Post的Rmd文档,如下图所示：</p>
+<p>填写好内容后，点击Done按钮即可在Post的问价夹看到生成的Rmd文档，你就可以编辑了，如下所示:</p>
+<p>最终生成的博客就编程了你自己想要的。</p>
+<p>第五步: 修改Hugo主题，让他变的更炫酷，更属于自己</p>
+<p>上面四步我们使用了基本的Hugo主题，如果我想换一些博客Hugo主题怎么办呢？其实这个问题我已经在上面中提到了，你需要修稿config文件和theme文件夹中的内容，比如你可以修稿config文件来修改你博客的结构和替换主题，theme文件夹中的主题可以在Hugo官方的主题网站中下载然后通过配置文件调用。</p>
+<p>这里提供一个我之前做的一个博客的效果：</p>
+<p>到这里为止，使用blogdown搭建了自己的博客系统，我们下一步需要做的是要把我们的博客部署到 netlify。</p>
+<p>3.部署
+对于blogdown的部署，提供了如下几种部署的办法：Netlify,Updog,GithubPages,GitlabPages等。我们选择其中一种部署办法就OK了，这里介绍blogdown部署到Netlify</p>
+<p>首先我们要把第2节中的项目托管到GitHub(这个过程比较简单，这里直接跳过)</p>
+<p>然后需要注册登录Netlify(<a href="https://app.netlify.com/signup" class="uri">https://app.netlify.com/signup</a>),可以直接通过GitHub账号登录，然后按照如下所示的过程，进行部署就OK了。</p>
+<p>点击 New site from git </p>
+<p>点击GitHub </p>
+<p>搜索GitHub中项目的名称 </p>
+<p>填写部署的相关信息并点击部署 </p>
+<p>部署完成的界面 </p>
+<p>这样就部署完你的项目了，Netlify会提供一个免费的域名给你例如我部署的项目：<a href="https://nuannuan.netlify.com/" class="uri">https://nuannuan.netlify.com/</a>。 最后如果你想Post新的内容到你的博客，直接可以Post到GitHub对应的项目中就OK了，非常方便。当然你也可以替换成自己的域名。</p>
+<p>4.小结
+我们通过blogdown包和Hugo可以完全基于Rstudio搭建一套自己的博客系统，并通过Netlify和GitHub部署到公网环境。这样我们就有自己的博客了。
+———————
+作者：R语言中文社区
+来源：CSDN
+原文：<a href="https://blog.csdn.net/kMD8d5R/article/details/82754968" class="uri">https://blog.csdn.net/kMD8d5R/article/details/82754968</a>
+版权声明：本文为博主原创文章，转载请附上博文链接！</p>
